@@ -1,1 +1,3 @@
-# -OLC1-Proyecto1_202112092
+# BRANDON EUDARDO PABLO GARCIA   
+## 202112092
+Laboratorio de COMPI 1 - N
