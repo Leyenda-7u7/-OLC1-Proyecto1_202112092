@@ -1,0 +1,105 @@
+// ------------  Paquete e importaciones ------------
+package statpy;
+
+import java_cup.runtime.*;
+
+
+
+//------> Codigo para el parser
+//------> Declaracion de variables, funciones y funciones de error
+
+parser code{:
+    public void syntax_error(Symbol s){
+        // INFORMACION DEL ERROR
+        int fila = s.right + 1;
+        int columna = s.left + 1;
+        String lexema = s.value.toString();
+        System.out.println("Error Sintactico recuperado; Lexema: " + lexema + " Fila: " + fila + " Columna: " + columna);
+    }
+
+    public void unrecovered_syntax_error(Symbol s){
+        // INFORMACION DEL ERROR
+        int fila = s.right + 1;
+        int columna = s.left + 1;
+        String lexema = s.value.toString();
+        System.out.println("Error Sintactico no recuperado; Lexema: " + lexema + " Fila: " + fila + " Columna: " + columna);
+    }
+
+    // Se puede añadir más código aquí
+:};
+
+//------> Codigo para las acciones gramaticales (no tocar)
+action code
+{:  :}
+
+
+
+//------> Declaración de terminales
+terminal String ENTERO, LLAVE_IZQ, LLAVE_DER, FLECHA, PUNTOYCOMA, DOSPUNTOS, GUION, GUIONÑ, CONJ, LETRA, ID, CADENA, DECIMAL, COMA, OP, NUMERO;
+terminal String PUNTO, DISYUNCION, ASTERISCO, MAS, INTER, DIVISION, DOBLE, BAJO, AMPERSAND, ADMIN;
+
+
+
+//------> Declaración de no terminales
+non terminal inicio;
+non terminal principal;
+non terminal instrucciones;
+non terminal conjunto_instruccion;
+non terminal wendy;
+non terminal tipo;
+non terminal l;
+non terminal fabiola;
+non terminal z;
+non terminal generador;
+non terminal operacion;
+
+
+
+//------> Definir Simbolo Inicial
+start with inicio; 
+
+
+// ------------>  Producciones  <------------
+
+inicio ::= principal
+;
+
+principal ::= LLAVE_IZQ instrucciones LLAVE_DER
+;
+
+instrucciones ::= instrucciones conjunto_instruccion 
+              | conjunto_instruccion;
+
+conjunto_instruccion ::= CONJ DOSPUNTOS ID FLECHA wendy tipo wendy PUNTOYCOMA
+                       | CONJ DOSPUNTOS ID FLECHA l PUNTOYCOMA
+                       | CONJ DOSPUNTOS ID FLECHA fabiola tipo fabiola PUNTOYCOMA
+                       | CONJ DOSPUNTOS ID FLECHA z PUNTOYCOMA
+;
+
+tipo ::= GUIONÑ
+        | GUION
+;
+
+wendy ::= NUMERO
+        | CADENA
+;
+
+l ::= l COMA NUMERO 
+      | NUMERO
+;
+
+fabiola ::= PUNTO
+          | DISYUNCION
+          | ASTERISCO
+          | MAS
+          | INTER
+          | DIVISION
+          | DOBLE
+          | BAJO
+          | AMPERSAND
+          | ADMIN
+;
+
+z ::= z COMA CADENA
+    | CADENA
+;
